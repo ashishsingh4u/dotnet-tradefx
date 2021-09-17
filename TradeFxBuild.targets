@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="Build">
+  <PropertyGroup>
+    <OutputDir>C:\Projects\TradeFx\build</OutputDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectToBuild Include="C:\Projects\TradeFx\TradeFx.sln">
+      <Properties>OutputPath=$(OutputDir);Configuration=Debug</Properties>
+    </ProjectToBuild>
+  </ItemGroup>
+  <Target Name="Build">
+    <MSBuild Projects="@(ProjectToBuild)"/>
+  </Target>
+  <Target Name="GetTestAssemblies">
+    <CreateItem
+        Include="$(WorkingDir)\unittest\**\bin\$(Configuration)\**\*Test*.dll"
+        AdditionalMetadata="TestContainerPrefix=/testcontainer:">
+      <Output
+          TaskParameter="Include"
+          ItemName="TestAssemblies"/>
+    </CreateItem>
+  </Target>
+  <!-- Unit Test -->
+  <Target Name="Test" DependsOnTargets="GetTestAssemblies">
+    <Message Text="Normal Test"/>
+    <Exec
+        WorkingDirectory="$(WorkingDir)\unittest"
+        Command="MsTest.exe @(TestAssemblies->'%(TestContainerPrefix)%(FullPath)',' ') /noisolation /resultsfile:$(MSTestResultsFile)"/>
+    <Message Text="Normal Test Done"/>
+  </Target>
+</Project>
+

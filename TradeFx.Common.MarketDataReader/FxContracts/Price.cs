@@ -1,0 +1,52 @@
+﻿//  ===================================================================================
+//  <copyright file="Price.cs" company="TechieNotes">
+//  ===================================================================================
+//   TechieNotes Utilities & Best Practices
+//   Samples and Guidelines for Winform & ASP.net development
+//  ===================================================================================
+//   Copyright (c) TechieNotes.  All rights reserved.
+//   THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
+//   OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
+//   LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//   FITNESS FOR A PARTICULAR PURPOSE.
+//  ===================================================================================
+//   The example companies, organizations, products, domain names,
+//   e-mail addresses, logos, people, places, and events depicted
+//   herein are fictitious.  No association with any real company,
+//   organization, product, domain name, email address, logo, person,
+//   places, or events is intended or should be inferred.
+//  ===================================================================================
+//  </copyright>
+//  <author>ASHISHSINGH</author>
+//  <email>mailto:ashishsingh4u@gmail.com</email>
+//  <date>12-01-2013</date>
+//  <summary>
+//     The Price.cs file.
+//  </summary>
+//  ===================================================================================
+namespace TradeFx.Common.MarketDataReader.FxContracts
+{
+    /// <summary>The price.</summary>
+    internal class Price
+    {
+        #region Fields
+
+        /// <summary>The time.</summary>
+        public double Time;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>Gets or sets the ask.</summary>
+        public double Ask { get; set; }
+
+        /// <summary>Gets or sets the bid.</summary>
+        public double Bid { get; set; }
+
+        /// <summary>Gets or sets the instrument.</summary>
+        public string Instrument { get; set; }
+
+        #endregion
+    }
+}

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+    ToolsVersion="4.0"
+    DefaultTargets="GenerateReport">
+  <Import Project="C:\Program Files (x86)\MSBuild\StyleCop\v4.7\StyleCop.Targets" />
+  <PropertyGroup>
+    <ProjectDirectory Condition="'$(ProjectDirectory)'==''">C:\CCNet_Integration\TradeFx</ProjectDirectory>
+    <OutputDir Condition="'$(OutputDir)'==''">$(ProjectDirectory)\build</OutputDir>
+    <TestConsolePath Condition="'$(TestConsolePath)'==''">"C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\CommonExtensions\Microsoft\TestWindow"</TestConsolePath>
+    <TestConsole Condition="'$(TestConsole)'==''">vstest.console.exe</TestConsole>
+    <TestConsoleArgs Condition="'$(TestConsoleArgs)'==''">/Settings:global.runsettings /Logger:trx /inIsolation /EnableCodeCoverage</TestConsoleArgs>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectToBuild Include="$(ProjectDirectory)\TradeFx.sln">
+      <Properties>OutputPath=$(OutputDir);Configuration=Debug</Properties>
+    </ProjectToBuild>
+  </ItemGroup>
+  <Target Name="Build" DependsOnTargets="CleanReport">
+    <MSBuild Projects="@(ProjectToBuild)"/>
+  </Target>
+  <Target Name="GetTestAssemblies" DependsOnTargets="Build">
+    <CreateItem
+        Include="$(OutputDir)\*Test*.dll">
+      <Output
+          TaskParameter="Include"
+          ItemName="TestAssemblies"/>
+    </CreateItem>
+  </Target>
+  <!-- Unit Test -->
+  <Target Name="Test" DependsOnTargets="GetTestAssemblies">
+    <Message Text="UnitTest Execution"/>
+    <Exec
+        WorkingDirectory="$(OutputDir)"
+        Command="$(TestConsolePath)\$(TestConsole) @(TestAssemblies->'%(Filename).dll',' ') $(TestConsoleArgs)"
+        ContinueOnError="True"/>
+    <Message Text="UnitTest Execution Completed"/>
+  </Target>
+  <Target Name="GenerateReport" DependsOnTargets="Test;AfterDebugCompile">
+    <Message Text="Report Generation"/>
+    <Exec
+        WorkingDirectory="$(OutputDir)"
+        Command="TradeFx.Build.exe $(OutputDir)\TestResults"/>
+    <Message Text="Report Generation Completed"/>
+  </Target>
+  <Target Name="CleanReport">
+    <Message Text="Clean Report"/>
+    <Exec
+        WorkingDirectory="$(OutputDir)"
+        Command="RD /Q /S TestResults"/>
+    <Message Text="Report directory cleaned "/>
+  </Target>
+
+  <!-- After DEBUG Compile -->
+  <Target Name="AfterDebugCompile" DependsOnTargets="FxCop;StyleCop">
+  </Target>
+
+  <!-- FxCop -->
+  <Target Name="FxCop" />
+
+  <!-- StyleCop -->
+  <ItemGroup>
+    <!-- Add Project to Analyze with StyleCop here -->
+    <Project Include="$(ProjectDirectory)\**\*.csproj" />
+  </ItemGroup>
+  <Target Name="StyleCop">
+    <Message Text="Running StyleCop..." />
+    <CreateItem Include="%(Project.RootDir)%(Project.Directory)**\*.cs"
+                Exclude="%(Project.RootDir)%(Project.Directory)**\*.Designer.cs">
+      <Output TaskParameter="Include" ItemName="StyleCopFiles" />
+    </CreateItem>
+    <StyleCopTask ProjectFullPath="$(MSBuildProjectFile)"
+                  SourceFiles="@(StyleCopFiles)"
+                  AdditionalAddinPaths="@(StyleCopAdditionalAddinPaths)"
+                  ForceFullAnalysis="true"
+                  DefineConstants="DEBUG TRACE CODE_ANALYSIS"
+                  TreatErrorsAsWarnings="true"
+                  CacheResults="false"
+                  OverrideSettingsFile="C:\Program Files (x86)\StyleCop 4.7\Settings.StyleCop"
+                  OutputFile="$(OutputDir)\TestResults\stylecop-results.xml"
+                  MaxViolationCount="500">
+    </StyleCopTask>
+    <Message Text="StyleCop executed" />
+  </Target>
+</Project>

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F23CCDF0-0091-4AC7-9986-EE6CED11167D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TradeFx.Common</RootNamespace>
+    <AssemblyName>TradeFx.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\build\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\build\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ThirdPartyReference\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Creation\FactoryClassEnumerator.cs" />
+    <Compile Include="Creation\FactoryInfo.cs" />
+    <Compile Include="Creation\ICreatable.cs" />
+    <Compile Include="Creation\IGetShortName.cs" />
+    <Compile Include="Creation\ObjectFactory.cs" />
+    <Compile Include="Creation\ObjectId.cs" />
+    <Compile Include="Crypto\Encrypter.cs" />
+    <Compile Include="Culture\AppCulture.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Events\BackgroundEventSubscription.cs" />
+    <Compile Include="Events\CompositePresentationEvent.cs" />
+    <Compile Include="Events\DataEventArgs.cs" />
+    <Compile Include="Events\DefaultDispatcher.Desktop.cs" />
+    <Compile Include="Events\DelegateReference.cs" />
+    <Compile Include="Events\DispatcherEventSubscription.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
+    <Compile Include="Events\EventBase.cs" />
+    <Compile Include="Events\EventPublisher.cs" />
+    <Compile Include="Events\EventSubscription.cs" />
+    <Compile Include="Events\EventWrapper.cs" />
+    <Compile Include="Events\IDelegateReference.cs" />
+    <Compile Include="Events\IDispatcherFacade.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IEventSubscription.cs" />
+    <Compile Include="Events\SubscriptionToken.cs" />
+    <Compile Include="Events\ThreadOption.cs" />
+    <Compile Include="Events\WeakDelegatesManager.cs" />
+    <Compile Include="Hbt\HBT.cs" />
+    <Compile Include="Hbt\HBTResponse.cs" />
+    <Compile Include="Hbt\IHbt.cs" />
+    <Compile Include="Hbt\ServerSideHbt.cs" />
+    <Compile Include="Hbt\ServerSideHbtRequest.cs" />
+    <Compile Include="Hbt\ServerSideHbtResponse.cs" />
+    <Compile Include="Hbt\ServerSideHbtResult.cs" />
+    <Compile Include="Helpers\ArgumentValidation.cs" />
+    <Compile Include="Helpers\ReadOnlyHelper.cs" />
+    <Compile Include="Helpers\Tools.cs" />
+    <Compile Include="Interface\IMessageBusService.cs" />
+    <Compile Include="Interface\IService.cs" />
+    <Compile Include="CommonServiceBootstrapper.cs" />
+    <Compile Include="Logging\IVerboseLoggable.cs" />
+    <Compile Include="Logging\LogData.cs" />
+    <Compile Include="Logging\LoggableObject.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LogUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\BinaryStreamReader.cs" />
+    <Compile Include="Serialization\BinaryStreamWriter.cs" />
+    <Compile Include="Serialization\Interfaces\IDeserializationFactory.cs" />
+    <Compile Include="Serialization\Interfaces\IMessageTypeIdentifier.cs" />
+    <Compile Include="Serialization\Interfaces\IStreamReader.cs" />
+    <Compile Include="Serialization\Interfaces\IStreamSerializable.cs" />
+    <Compile Include="Serialization\Interfaces\IStreamWriter.cs" />
+    <Compile Include="Serialization\MessageTypeIds.cs" />
+    <Compile Include="Serialization\TechieNotesDelimitedBuilder.cs" />
+    <Compile Include="Serialization\TechieNotesDelimitedFormatInfo.cs" />
+    <Compile Include="Serialization\TechieNotesDelimitedFormatter.cs" />
+    <Compile Include="Serialization\TechieNotesDelimitedParser.cs" />
+    <Compile Include="Serialization\TechieObjectFactory.cs" />
+    <Compile Include="Service\MessageBusService.cs" />
+    <Compile Include="Service\ServiceBase.cs" />
+    <Compile Include="Service\ServiceManager.cs" />
+    <Compile Include="Transport\Connection.cs" />
+    <Compile Include="Transport\ConnectionManager.cs" />
+    <Compile Include="Transport\Consumers.cs" />
+    <Compile Include="Transport\IConnection.cs" />
+    <Compile Include="Transport\IocpPoolSignalConflator.cs" />
+    <Compile Include="Transport\Manager.cs" />
+    <Compile Include="Transport\Network\NetworkConnection.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionImpl.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionImplSecure.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionImplUnsecure.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionListener.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionListenerImpl.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionListenerImplSecure.cs" />
+    <Compile Include="Transport\Network\NetworkConnectionListenerImplUnsecure.cs" />
+    <Compile Include="Transport\Packet\IConflatable.cs" />
+    <Compile Include="Logging\ILoggable.cs" />
+    <Compile Include="Transport\Packet\ISendable.cs" />
+    <Compile Include="Transport\Packet\IToKey.cs" />
+    <Compile Include="Transport\Packet\Key.cs" />
+    <Compile Include="Transport\Packet\LengthPreFixedPackAssembler.cs" />
+    <Compile Include="Transport\Packet\LoggableEventArgs.cs" />
+    <Compile Include="Transport\Packet\PacketAssembler.cs" />
+    <Compile Include="Transport\Packet\RawData.cs" />
+    <Compile Include="Transport\ProxyConnector\BasicProxyAuthenticator.cs" />
+    <Compile Include="Transport\DirectConnector\DirectSocketConnector.cs" />
+    <Compile Include="Transport\ProxyConnector\IProxyAuthenticator.cs" />
+    <Compile Include="Transport\ISocketConnector.cs" />
+    <Compile Include="Transport\ProxyConnector\ProxyEncoding.cs" />
+    <Compile Include="Transport\ProxyConnector\ProxyHelper.cs" />
+    <Compile Include="Transport\ProxyConnector\ProxyResponse.cs" />
+    <Compile Include="Transport\ProxyConnector\SocketConnector.cs" />
+    <Compile Include="Transport\ProxyConnector\SocketConnectorErrorType.cs" />
+    <Compile Include="Transport\ProxyConnector\SocketConnectorException.cs" />
+    <Compile Include="Transport\ProxyConnector\SspiClientHelper.cs" />
+    <Compile Include="Transport\ProxyConnector\SspiProxyAuthenticator.cs" />
+    <Compile Include="Transport\ProxyConnector\WDigestProxyAuthenticator.cs" />
+    <Compile Include="Transport\SignalConflator.cs" />
+    <Compile Include="Transport\TechieQueue.cs" />
+    <Compile Include="Transport\TechieSocket.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Emcaster\Emcaster.csproj">
+      <Project>{6fbd14b8-c57d-49fd-8283-a162f40abe37}</Project>
+      <Name>Emcaster</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
